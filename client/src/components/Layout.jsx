@@ -43,6 +43,7 @@ const navItems = [
   { path: '/waitlist', label: 'Waitlist', icon: Clock },
   { heading: 'AI' },
   { path: '/ai', label: 'AI Features', icon: Sparkles },
+  { path: '/ai-advanced', label: 'AI Advanced', icon: Sparkles },
 ];
 
 export default function Layout({ children }) {

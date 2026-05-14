@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'openai/gpt-4o';
+const OPENROUTER_MODEL = 'anthropic/claude-3-5-sonnet-20241022';
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const SYSTEM_PROMPT = "You are an expert dance studio manager and dance educator with deep knowledge of dance pedagogy, student development, competition strategy, and studio operations.";
 
 async function callOpenRouter(prompt) {
   const response = await fetch(OPENROUTER_URL, {
@@ -16,7 +18,10 @@ async function callOpenRouter(prompt) {
     },
     body: JSON.stringify({
       model: OPENROUTER_MODEL,
-      messages: [{ role: 'user', content: prompt }],
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: prompt }
+      ],
     }),
   });
 
@@ -29,22 +34,31 @@ async function callOpenRouter(prompt) {
   return data.choices[0].message.content;
 }
 
+function validate(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+  next();
+}
+
 // POST /generate - General AI generation
-router.post('/generate', async (req, res) => {
-  try {
-    const { prompt } = req.body;
-    if (!prompt) {
-      return res.status(400).json({ error: 'Prompt is required' });
+router.post('/generate',
+  body('prompt').notEmpty().withMessage('prompt is required'),
+  validate,
+  async (req, res) => {
+    try {
+      const { prompt } = req.body;
+      const result = await callOpenRouter(prompt);
+      res.json({ result });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-    const result = await callOpenRouter(prompt);
-    res.json({ result });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+  });
 
 // POST /class-description - Generate class marketing descriptions
-router.post('/class-description', async (req, res) => {
+router.post('/class-description',
+  body('class_name').optional(),
+  body('style').optional(),
+  async (req, res) => {
   try {
     const { class_name, style, level, age_group, description, danceStyle, ageGroup, additionalInfo } = req.body;
     const prompt = `Generate an engaging marketing description for a dance class with the following details:

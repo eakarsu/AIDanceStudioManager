@@ -16,6 +16,7 @@ import CostumesPage from './pages/CostumesPage';
 import BillingPage from './pages/BillingPage';
 import FamiliesPage from './pages/FamiliesPage';
 import AIFeaturesPage from './pages/AIFeaturesPage';
+import AIAdvancedFeaturesPage from './pages/AIAdvancedFeaturesPage';
 import TicketsPage from './pages/TicketsPage';
 import MerchandisePage from './pages/MerchandisePage';
 import VolunteersPage from './pages/VolunteersPage';
@@ -30,6 +31,21 @@ import TrialClassesPage from './pages/TrialClassesPage';
 import SummerIntensivesPage from './pages/SummerIntensivesPage';
 import MakeupClassesPage from './pages/MakeupClassesPage';
 import FinancialReportsPage from './pages/FinancialReportsPage';
+
+// // === Batch 02 Gaps & Frontend Mounts ===
+import CfPredictiveTalentIdentification from './pages/CfPredictiveTalentIdentification';
+import CfRecitalCompetitionOptimization from './pages/CfRecitalCompetitionOptimization';
+import CfStudentProgressionTracking from './pages/CfStudentProgressionTracking';
+import CfTeacherWorkloadBalancing from './pages/CfTeacherWorkloadBalancing';
+import CfParentEngagementAutomation from './pages/CfParentEngagementAutomation';
+import GapSchedulesCompetitionsRecitalsLackAiEndpointsForSchedu from './pages/GapSchedulesCompetitionsRecitalsLackAiEndpointsForSchedu';
+import GapMusicVideosPhotosLackAiCurationSuggestionEndpoints from './pages/GapMusicVideosPhotosLackAiCurationSuggestionEndpoints';
+import GapAttendanceLacksAiNoShowChurnPrediction from './pages/GapAttendanceLacksAiNoShowChurnPrediction';
+import GapNoVideoStreamingRecordingPlatformIntegration from './pages/GapNoVideoStreamingRecordingPlatformIntegration';
+import GapNoParentPortalForAttendanceGradesMessaging from './pages/GapNoParentPortalForAttendanceGradesMessaging';
+import GapLimitedMobileAppForStudentsTeachers from './pages/GapLimitedMobileAppForStudentsTeachers';
+import GapNoMusicLicensingIntegrationForPublicPerformances from './pages/GapNoMusicLicensingIntegrationForPublicPerformances';
+import GapNoWebhooks from './pages/GapNoWebhooks';
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('token');
@@ -57,6 +73,7 @@ export default function App() {
       <Route path="/billing" element={<ProtectedRoute><BillingPage /></ProtectedRoute>} />
       <Route path="/families" element={<ProtectedRoute><FamiliesPage /></ProtectedRoute>} />
       <Route path="/ai" element={<ProtectedRoute><AIFeaturesPage /></ProtectedRoute>} />
+      <Route path="/ai-advanced" element={<ProtectedRoute><AIAdvancedFeaturesPage /></ProtectedRoute>} />
       <Route path="/tickets" element={<ProtectedRoute><TicketsPage /></ProtectedRoute>} />
       <Route path="/merchandise" element={<ProtectedRoute><MerchandisePage /></ProtectedRoute>} />
       <Route path="/volunteers" element={<ProtectedRoute><VolunteersPage /></ProtectedRoute>} />
@@ -71,6 +88,21 @@ export default function App() {
       <Route path="/summer-intensives" element={<ProtectedRoute><SummerIntensivesPage /></ProtectedRoute>} />
       <Route path="/makeup-classes" element={<ProtectedRoute><MakeupClassesPage /></ProtectedRoute>} />
       <Route path="/financial-reports" element={<ProtectedRoute><FinancialReportsPage /></ProtectedRoute>} />
-    </Routes>
+    
+        {/* // === Batch 02 Gaps & Frontend Mounts === */}
+        <Route path="/cf/predictive-talent-identification" element={<CfPredictiveTalentIdentification />} />
+        <Route path="/cf/recital-competition-optimization" element={<CfRecitalCompetitionOptimization />} />
+        <Route path="/cf/student-progression-tracking" element={<CfStudentProgressionTracking />} />
+        <Route path="/cf/teacher-workload-balancing" element={<CfTeacherWorkloadBalancing />} />
+        <Route path="/cf/parent-engagement-automation" element={<CfParentEngagementAutomation />} />
+        <Route path="/gap/schedules-competitions-recitals-lack-ai-endpoints-for-schedu" element={<GapSchedulesCompetitionsRecitalsLackAiEndpointsForSchedu />} />
+        <Route path="/gap/music-videos-photos-lack-ai-curation-suggestion-endpoints" element={<GapMusicVideosPhotosLackAiCurationSuggestionEndpoints />} />
+        <Route path="/gap/attendance-lacks-ai-no-show-churn-prediction" element={<GapAttendanceLacksAiNoShowChurnPrediction />} />
+        <Route path="/gap/no-video-streaming-recording-platform-integration" element={<GapNoVideoStreamingRecordingPlatformIntegration />} />
+        <Route path="/gap/no-parent-portal-for-attendance-grades-messaging" element={<GapNoParentPortalForAttendanceGradesMessaging />} />
+        <Route path="/gap/limited-mobile-app-for-students-teachers" element={<GapLimitedMobileAppForStudentsTeachers />} />
+        <Route path="/gap/no-music-licensing-integration-for-public-performances" element={<GapNoMusicLicensingIntegrationForPublicPerformances />} />
+        <Route path="/gap/no-webhooks" element={<GapNoWebhooks />} />
+      </Routes>
   );
 }
