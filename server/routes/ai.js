@@ -3,7 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const OPENROUTER_MODEL = 'anthropic/claude-3-5-sonnet-20241022';
+const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5';
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const SYSTEM_PROMPT = "You are an expert dance studio manager and dance educator with deep knowledge of dance pedagogy, student development, competition strategy, and studio operations.";
 

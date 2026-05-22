@@ -56,6 +56,7 @@ const trialClassesRoutes = require('./routes/trial-classes');
 const summerIntensivesRoutes = require('./routes/summer-intensives');
 const makeupClassesRoutes = require('./routes/makeup-classes');
 const financialReportsRoutes = require('./routes/financial-reports');
+const costumeReadinessRiskRoutes = require('./routes/costumeReadinessRisk');
 
 // Route registration
 app.use('/api/auth', authRoutes);
@@ -98,6 +99,7 @@ app.use('/api/trial-classes', trialClassesRoutes);
 app.use('/api/summer-intensives', summerIntensivesRoutes);
 app.use('/api/makeup-classes', makeupClassesRoutes);
 app.use('/api/financial-reports', financialReportsRoutes);
+app.use('/api/costume-readiness-risk', costumeReadinessRiskRoutes);
 
 // Health check
 app.get('/api/health', async (req, res) => {

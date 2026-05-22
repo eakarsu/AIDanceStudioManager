@@ -31,6 +31,7 @@ import TrialClassesPage from './pages/TrialClassesPage';
 import SummerIntensivesPage from './pages/SummerIntensivesPage';
 import MakeupClassesPage from './pages/MakeupClassesPage';
 import FinancialReportsPage from './pages/FinancialReportsPage';
+import CostumeReadinessRisk from './pages/CostumeReadinessRisk';
 
 // // === Batch 02 Gaps & Frontend Mounts ===
 import CfPredictiveTalentIdentification from './pages/CfPredictiveTalentIdentification';
@@ -47,6 +48,11 @@ import GapLimitedMobileAppForStudentsTeachers from './pages/GapLimitedMobileAppF
 import GapNoMusicLicensingIntegrationForPublicPerformances from './pages/GapNoMusicLicensingIntegrationForPublicPerformances';
 import GapNoWebhooks from './pages/GapNoWebhooks';
 
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
+import TimelineView from './pages/TimelineView';
+
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -58,6 +64,10 @@ function ProtectedRoute({ children }) {
 export default function App() {
   return (
     <Routes>
+        <Route path="/insights/timeline" element={<ProtectedRoute><TimelineView /></ProtectedRoute>} />
+        <Route path="/codex/custom-viz" element={<ProtectedRoute><CodexCustomVizFeature /></ProtectedRoute>} />
+        <Route path="/codex/operations" element={<ProtectedRoute><CodexOperationsFeature /></ProtectedRoute>} />
+
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/classes" element={<ProtectedRoute><ClassesPage /></ProtectedRoute>} />
@@ -88,6 +98,7 @@ export default function App() {
       <Route path="/summer-intensives" element={<ProtectedRoute><SummerIntensivesPage /></ProtectedRoute>} />
       <Route path="/makeup-classes" element={<ProtectedRoute><MakeupClassesPage /></ProtectedRoute>} />
       <Route path="/financial-reports" element={<ProtectedRoute><FinancialReportsPage /></ProtectedRoute>} />
+      <Route path="/costume-readiness-risk" element={<ProtectedRoute><CostumeReadinessRisk /></ProtectedRoute>} />
     
         {/* // === Batch 02 Gaps & Frontend Mounts === */}
         <Route path="/cf/predictive-talent-identification" element={<CfPredictiveTalentIdentification />} />

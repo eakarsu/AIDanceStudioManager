@@ -34,6 +34,7 @@ const navItems = [
   { path: '/financial-reports', label: 'Financial Reports', icon: BarChart3 },
   { heading: 'Resources' },
   { path: '/costumes', label: 'Costumes', icon: Shirt },
+  { path: '/costume-readiness-risk', label: 'Costume Risk', icon: Shirt },
   { path: '/props', label: 'Props', icon: Package },
   { path: '/music', label: 'Music', icon: Music },
   { path: '/videos', label: 'Videos', icon: Video },
