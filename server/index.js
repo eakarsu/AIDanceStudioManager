@@ -9,6 +9,8 @@ const { aiRateLimiter, generalLimiter } = require('./middleware/rateLimiter');
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 4000;
+if (!process.env.DATABASE_URL && !(process.env.DB_HOST && process.env.DB_NAME && process.env.DB_USER)) throw new Error('Database configuration is required');
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) throw new Error('JWT_SECRET must contain at least 32 characters');
 
 // Security headers
 app.use(helmet({
@@ -100,6 +102,7 @@ app.use('/api/summer-intensives', summerIntensivesRoutes);
 app.use('/api/makeup-classes', makeupClassesRoutes);
 app.use('/api/financial-reports', financialReportsRoutes);
 app.use('/api/costume-readiness-risk', costumeReadinessRiskRoutes);
+app.use('/api/governed-operations', require('./routes/governedOperations'));
 
 // Health check
 app.get('/api/health', async (req, res) => {
@@ -111,52 +114,22 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// Best-effort: ensure ai_results table exists for AI feature persistence.
-async function ensureAiResultsTable() {
-  try {
-    await pool.query(`CREATE TABLE IF NOT EXISTS ai_results (
-      id SERIAL PRIMARY KEY,
-      user_id INTEGER,
-      feature VARCHAR(100) NOT NULL,
-      inputs JSONB,
-      ai_results JSONB,
-      raw_response TEXT,
-      model VARCHAR(100),
-      tokens INTEGER DEFAULT 0,
-      created_at TIMESTAMP DEFAULT NOW()
-    )`);
-    await pool.query(`CREATE INDEX IF NOT EXISTS idx_ai_results_feature ON ai_results(feature)`);
-    await pool.query(`CREATE INDEX IF NOT EXISTS idx_ai_results_user ON ai_results(user_id)`);
-  } catch (e) {
-    console.warn('[startup] ai_results ensure skipped:', e.message);
-  }
-}
+// // === Batch 02 Gaps & Frontend Mounts ===
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-schedules-competitions-recitals-lack-ai-endpoints-for-schedu', require('./routes/gap_schedules_competitions_recitals_lack_ai_endpoints_for_schedu'));
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-music-videos-photos-lack-ai-curation-suggestion-endpoints', require('./routes/gap_music_videos_photos_lack_ai_curation_suggestion_endpoints'));
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-attendance-lacks-ai-no-show-churn-prediction', require('./routes/gap_attendance_lacks_ai_no_show_churn_prediction'));
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-no-video-streaming-recording-platform-integration', require('./routes/gap_no_video_streaming_recording_platform_integration'));
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-no-parent-portal-for-attendance-grades-messaging', require('./routes/gap_no_parent_portal_for_attendance_grades_messaging'));
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-limited-mobile-app-for-students-teachers', require('./routes/gap_limited_mobile_app_for_students_teachers'));
 
 // // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-no-music-licensing-integration-for-public-performances', require('./routes/gap_no_music_licensing_integration_for_public_performances'));
 
-// // === Batch 02 Gaps & Frontend Mounts ===
-app.use('/api/gap-no-webhooks', require('./routes/gap_no_webhooks'));
-
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  await ensureAiResultsTable();
 });

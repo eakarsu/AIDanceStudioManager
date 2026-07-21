@@ -1,0 +1,7 @@
+# Governed dance-studio operations
+
+The launcher does not install, migrate, seed, create databases, or kill port owners. Bootstrap, configure `.env`, migrate, provision tenant roles, then start. Demo seeding is separately guarded.
+
+The governed operations boundary models encrypted guardian/student references, purpose-specific consent with policy versions and evidence hashes, capacity and ordered waitlists, schedule conflict checks, exact-cent proration/refunds, idempotent attendance and ledger entries, payment reconciliation, tenant roles, optimistic transitions, provider-sync failures and audit events. Minor enrollment requires current guardian participation consent. Photo/video publication requires separate current media consent. A drop cannot complete without a versioned ledger adjustment, and program completion requires reconciled attendance. Generated gap endpoints and startup DDL are disabled.
+
+Scheduling, payments/accounting, messaging, access/attendance and media adapters remain disabled pending credentials, webhook-signature validation, contract/replay fixtures and provider failure tests. The service must receive tokenized payment references only; it must never receive card data. Child-safety, guardian authority, emergency/medical handling, background-check policy, music/performance licensing, refund terms and media release language require studio counsel and qualified operators before launch.
