@@ -10,8 +10,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleQuickLogin = () => {
-    setEmail('admin@dancestudio.com');
-    setPassword('password123');
+    setEmail(import.meta.env.VITE_DEMO_EMAIL || '');
+    setPassword(import.meta.env.VITE_DEMO_PASSWORD || '');
   };
 
   const handleSubmit = async (e) => {
