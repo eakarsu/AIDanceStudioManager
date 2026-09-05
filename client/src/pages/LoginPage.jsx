@@ -69,7 +69,7 @@ export default function LoginPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
             <button type="button" className="btn btn-secondary btn-full" onClick={handleQuickLogin}>
-              Quick Login (Demo)
+              Auto Fill Demo Credentials
             </button>
           </form>
           <p className="login-footer">Powered by AI Dance Studio Manager</p>
