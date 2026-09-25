@@ -61,7 +61,13 @@ const financialReportsRoutes = require('./routes/financial-reports');
 const costumeReadinessRiskRoutes = require('./routes/costumeReadinessRisk');
 
 // Route registration
+const createWebhooksRouter = require('./routes/webhooks');
+const createParentPortalRouter = require('./routes/parentPortal');
+const createMobileShellRouter = require('./routes/mobileShell');
 app.use('/api/auth', authRoutes);
+
+app.use('/api', createMobileShellRouter(require('./middleware/auth'), require('./db'), {"name":"Dance Studio","shortName":"Studio","themeColor":"#a21caf","queries":[{"kind":"todaysClasses","sql":"SELECT id, class_name, starts_at FROM classes WHERE teacher_email = $1 LIMIT 25"}]}));app.use('/api', createParentPortalRouter(require('./middleware/auth'), require('./db')));
+app.use('/api', createWebhooksRouter(require('../middleware/auth'), require('../db')));
 app.use('/api/classes', classesRoutes);
 app.use('/api/students', studentsRoutes);
 app.use('/api/teachers', teachersRoutes);
