@@ -64,50 +64,57 @@ const costumeReadinessRiskRoutes = require('./routes/costumeReadinessRisk');
 const createWebhooksRouter = require('./routes/webhooks');
 const createParentPortalRouter = require('./routes/parentPortal');
 const createMobileShellRouter = require('./routes/mobileShell');
+const attendanceRiskRoutes = require('./routes/attendanceRisk');
+const authMiddleware = require('./middleware/auth');
 app.use('/api/auth', authRoutes);
+app.use('/api/ai', authMiddleware, attendanceRiskRoutes);
 
 app.use('/api', createMobileShellRouter(require('./middleware/auth'), require('./db'), {"name":"Dance Studio","shortName":"Studio","themeColor":"#a21caf","queries":[{"kind":"todaysClasses","sql":"SELECT id, class_name, starts_at FROM classes WHERE teacher_email = $1 LIMIT 25"}]}));app.use('/api', createParentPortalRouter(require('./middleware/auth'), require('./db')));
-app.use('/api', createWebhooksRouter(require('../middleware/auth'), require('../db')));
-app.use('/api/classes', classesRoutes);
-app.use('/api/students', studentsRoutes);
-app.use('/api/teachers', teachersRoutes);
-app.use('/api/studios', studiosRoutes);
-app.use('/api/schedules', schedulesRoutes);
-app.use('/api/enrollment', enrollmentRoutes);
-app.use('/api/attendance', attendanceRoutes);
-app.use('/api/recitals', recitalsRoutes);
-app.use('/api/competitions', competitionsRoutes);
-app.use('/api/costumes', costumesRoutes);
-app.use('/api/billing', billingRoutes);
-app.use('/api/families', familiesRoutes);
-app.use('/api/ai', aiRateLimiter, aiRoutes);
-app.use('/api/ai', aiRateLimiter, require('./routes/aiNew'));
+app.use('/api', createWebhooksRouter(require('./middleware/auth'), require('./db')));
+// Legacy CRUD/AI routers below hold studio, family, student, attendance and
+// financial data. They previously ran with no auth at all. Mobile shell and
+// parent portal above are deliberately separate surfaces and keep their own
+// auth middleware.
+app.use('/api/classes', authMiddleware, classesRoutes);
+app.use('/api/students', authMiddleware, studentsRoutes);
+app.use('/api/teachers', authMiddleware, teachersRoutes);
+app.use('/api/studios', authMiddleware, studiosRoutes);
+app.use('/api/schedules', authMiddleware, schedulesRoutes);
+app.use('/api/enrollment', authMiddleware, enrollmentRoutes);
+app.use('/api/attendance', authMiddleware, attendanceRoutes);
+app.use('/api/recitals', authMiddleware, recitalsRoutes);
+app.use('/api/competitions', authMiddleware, competitionsRoutes);
+app.use('/api/costumes', authMiddleware, costumesRoutes);
+app.use('/api/billing', authMiddleware, billingRoutes);
+app.use('/api/families', authMiddleware, familiesRoutes);
+app.use('/api/ai', authMiddleware, aiRateLimiter, aiRoutes);
+app.use('/api/ai', authMiddleware, aiRateLimiter, require('./routes/aiNew'));
 
 
 
 
 
-app.use('/api/ai', require('./routes/parentEngage'));
-app.use('/api/ai', require('./routes/teacherBalance'));
-app.use('/api/ai', require('./routes/progressionTrack'));
-app.use('/api/ai', require('./routes/eventOptimize'));
-app.use('/api/ai', require('./routes/talentId'));
-app.use('/api/analytics', require('./routes/analytics'));
-app.use('/api/tickets', ticketsRoutes);
-app.use('/api/merchandise', merchandiseRoutes);
-app.use('/api/volunteers', volunteersRoutes);
-app.use('/api/props', propsRoutes);
-app.use('/api/music', musicRoutes);
-app.use('/api/achievements', achievementsRoutes);
-app.use('/api/measurements', measurementsRoutes);
-app.use('/api/videos', videosRoutes);
-app.use('/api/photos', photosRoutes);
-app.use('/api/waitlist', waitlistRoutes);
-app.use('/api/trial-classes', trialClassesRoutes);
-app.use('/api/summer-intensives', summerIntensivesRoutes);
-app.use('/api/makeup-classes', makeupClassesRoutes);
-app.use('/api/financial-reports', financialReportsRoutes);
-app.use('/api/costume-readiness-risk', costumeReadinessRiskRoutes);
+app.use('/api/ai', authMiddleware, require('./routes/parentEngage'));
+app.use('/api/ai', authMiddleware, require('./routes/teacherBalance'));
+app.use('/api/ai', authMiddleware, require('./routes/progressionTrack'));
+app.use('/api/ai', authMiddleware, require('./routes/eventOptimize'));
+app.use('/api/ai', authMiddleware, require('./routes/talentId'));
+app.use('/api/analytics', authMiddleware, require('./routes/analytics'));
+app.use('/api/tickets', authMiddleware, ticketsRoutes);
+app.use('/api/merchandise', authMiddleware, merchandiseRoutes);
+app.use('/api/volunteers', authMiddleware, volunteersRoutes);
+app.use('/api/props', authMiddleware, propsRoutes);
+app.use('/api/music', authMiddleware, musicRoutes);
+app.use('/api/achievements', authMiddleware, achievementsRoutes);
+app.use('/api/measurements', authMiddleware, measurementsRoutes);
+app.use('/api/videos', authMiddleware, videosRoutes);
+app.use('/api/photos', authMiddleware, photosRoutes);
+app.use('/api/waitlist', authMiddleware, waitlistRoutes);
+app.use('/api/trial-classes', authMiddleware, trialClassesRoutes);
+app.use('/api/summer-intensives', authMiddleware, summerIntensivesRoutes);
+app.use('/api/makeup-classes', authMiddleware, makeupClassesRoutes);
+app.use('/api/financial-reports', authMiddleware, financialReportsRoutes);
+app.use('/api/costume-readiness-risk', authMiddleware, costumeReadinessRiskRoutes);
 app.use('/api/governed-operations', require('./routes/governedOperations'));
 
 // Health check

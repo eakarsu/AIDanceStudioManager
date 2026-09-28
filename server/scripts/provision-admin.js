@@ -9,9 +9,9 @@ async function main() {
   if (!email || password.length < 12) throw new Error('Provisioning requires an admin email and a password of at least 12 characters');
   const hash = await bcrypt.hash(password, 12);
   await pool.query(
-    `INSERT INTO users(first_name,last_name,email,password,role) VALUES($1,$2,$3,$4,'admin')
-     ON CONFLICT(email) DO UPDATE SET first_name=EXCLUDED.first_name,last_name=EXCLUDED.last_name,password=EXCLUDED.password,role='admin'`,
-    ['Runtime', 'Administrator', email, hash]
+    `INSERT INTO users(name,email,password_hash,role) VALUES($1,$2,$3,'admin')
+     ON CONFLICT(email) DO UPDATE SET name=EXCLUDED.name,password_hash=EXCLUDED.password_hash,role='admin'`,
+    ['Runtime Administrator', email, hash]
   );
   console.log('Runtime administrator provisioned');
 }

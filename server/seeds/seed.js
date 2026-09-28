@@ -30,9 +30,8 @@ async function seed() {
       CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        first_name VARCHAR(100),
-        last_name VARCHAR(100),
+        password_hash VARCHAR(255) NOT NULL,
+        name VARCHAR(255),
         role VARCHAR(50) DEFAULT 'admin',
         created_at TIMESTAMP DEFAULT NOW()
       );
@@ -403,22 +402,22 @@ async function seed() {
     // 1. USERS (15)
     const hashedPassword = await bcrypt.hash(requireDemoPassword(), 10);
     await client.query(`
-      INSERT INTO users (email, password, first_name, last_name, role) VALUES
-        ('admin@dancestudio.com', $1, 'Sarah', 'Mitchell', 'admin'),
-        ('manager@dancestudio.com', $1, 'David', 'Chen', 'admin'),
-        ('frontdesk@dancestudio.com', $1, 'Emily', 'Roberts', 'staff'),
-        ('billing@dancestudio.com', $1, 'Jessica', 'Taylor', 'staff'),
-        ('teacher1@dancestudio.com', $1, 'Maria', 'Gonzalez', 'teacher'),
-        ('teacher2@dancestudio.com', $1, 'Anna', 'Petrova', 'teacher'),
-        ('teacher3@dancestudio.com', $1, 'James', 'Waller', 'teacher'),
-        ('teacher4@dancestudio.com', $1, 'Keiko', 'Tanaka', 'teacher'),
-        ('teacher5@dancestudio.com', $1, 'Leah', 'Washington', 'teacher'),
-        ('coordinator@dancestudio.com', $1, 'Rachel', 'Kim', 'staff'),
-        ('costume@dancestudio.com', $1, 'Nina', 'Patel', 'staff'),
-        ('media@dancestudio.com', $1, 'Tyler', 'Brooks', 'staff'),
-        ('assistant@dancestudio.com', $1, 'Megan', 'Foster', 'staff'),
-        ('volunteer@dancestudio.com', $1, 'Karen', 'Sullivan', 'volunteer'),
-        ('parent@dancestudio.com', $1, 'Lisa', 'Anderson', 'parent');
+      INSERT INTO users (email, password_hash, name, role) VALUES
+        ('admin@dancestudio.com', $1, 'Sarah Mitchell', 'admin'),
+        ('manager@dancestudio.com', $1, 'David Chen', 'admin'),
+        ('frontdesk@dancestudio.com', $1, 'Emily Roberts', 'staff'),
+        ('billing@dancestudio.com', $1, 'Jessica Taylor', 'staff'),
+        ('teacher1@dancestudio.com', $1, 'Maria Gonzalez', 'teacher'),
+        ('teacher2@dancestudio.com', $1, 'Anna Petrova', 'teacher'),
+        ('teacher3@dancestudio.com', $1, 'James Waller', 'teacher'),
+        ('teacher4@dancestudio.com', $1, 'Keiko Tanaka', 'teacher'),
+        ('teacher5@dancestudio.com', $1, 'Leah Washington', 'teacher'),
+        ('coordinator@dancestudio.com', $1, 'Rachel Kim', 'staff'),
+        ('costume@dancestudio.com', $1, 'Nina Patel', 'staff'),
+        ('media@dancestudio.com', $1, 'Tyler Brooks', 'staff'),
+        ('assistant@dancestudio.com', $1, 'Megan Foster', 'staff'),
+        ('volunteer@dancestudio.com', $1, 'Karen Sullivan', 'volunteer'),
+        ('parent@dancestudio.com', $1, 'Lisa Anderson', 'parent');
     `, [hashedPassword]);
     console.log('Seeded users.');
 

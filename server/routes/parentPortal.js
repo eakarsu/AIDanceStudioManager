@@ -47,6 +47,7 @@ function createParentPortalRouter(authMiddleware, pool) {
     } catch (e) { res.status(500).json({ error: e.message || 'Failed to list students' }); }
   });
 
+  /** Attendance lives on `attendance` (date/status/notes) with the class name on `classes`. */
   router.get('/portal/:studentId/attendance', authMiddleware, async (req, res) => {
     try {
       await ensure();
@@ -57,8 +58,11 @@ function createParentPortalRouter(authMiddleware, pool) {
         return res.status(403).json({ error: 'This student is not linked to your account.' });
       }
       const rows = (await pool.query(
-        `SELECT id, class_name, attended_at, status, note FROM attendance
-          WHERE student_id = $1 ORDER BY attended_at DESC LIMIT 100`,
+        `SELECT a.id, c.name AS class_name, a.date AS attended_at, a.status, a.notes AS note
+           FROM attendance a
+           LEFT JOIN classes c ON c.id = a.class_id
+          WHERE a.student_id = $1
+          ORDER BY a.date DESC, a.id DESC LIMIT 100`,
         [studentId],
       )).rows;
       const summary = rows.reduce((a, r) => {
@@ -76,6 +80,15 @@ function createParentPortalRouter(authMiddleware, pool) {
       const allowed = await visibleStudents(req.user?.email ?? '');
       if (!allowed.includes(studentId)) {
         return res.status(403).json({ error: 'This student is not linked to your account.' });
+      }
+      // `database/schema.sql` defines no grades table. No migration installs
+      // one, so this is an explicit "not installed" rather than a 500.
+      const installed = (await pool.query(`SELECT to_regclass('public.grades') AS rel`)).rows[0].rel;
+      if (!installed) {
+        return res.status(501).json({
+          error: 'Grades are not installed in this database (no grades table is defined by database/schema.sql or its migrations).',
+          installed: false,
+        });
       }
       const rows = (await pool.query(
         `SELECT id, class_name, term, grade, comment FROM grades
@@ -104,6 +117,16 @@ function createParentPortalRouter(authMiddleware, pool) {
       if (!subject || !String(subject).trim()) return res.status(400).json({ error: 'subject is required' });
       if (!body || !String(body).trim()) return res.status(400).json({ error: 'body is required' });
 
+      // `parent_messages` is not defined by database/schema.sql or its
+      // migrations: report "not installed" instead of failing on INSERT.
+      const installed = (await pool.query(`SELECT to_regclass('public.parent_messages') AS rel`)).rows[0].rel;
+      if (!installed) {
+        return res.status(501).json({
+          error: 'Parent messaging is not installed in this database (no parent_messages table is defined by database/schema.sql or its migrations).',
+          installed: false,
+        });
+      }
+
       const r = await pool.query(
         `INSERT INTO parent_messages (student_id, from_email, subject, body)
          VALUES ($1,$2,$3,$4) RETURNING id, student_id, subject, created_at`,
@@ -111,9 +134,6 @@ function createParentPortalRouter(authMiddleware, pool) {
       );
       res.status(201).json({ message: r.rows[0] });
     } catch (e) {
-      if (/relation .* does not exist/i.test(e.message ?? '')) {
-        return res.status(503).json({ error: 'parent_messages table is missing — run the migration before messaging.' });
-      }
       res.status(500).json({ error: e.message || 'Failed to send message' });
     }
   });
