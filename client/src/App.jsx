@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
+import { apiGet } from './utils/api';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import ClassesPage from './pages/ClassesPage';
@@ -32,6 +33,8 @@ import SummerIntensivesPage from './pages/SummerIntensivesPage';
 import MakeupClassesPage from './pages/MakeupClassesPage';
 import FinancialReportsPage from './pages/FinancialReportsPage';
 import CostumeReadinessRisk from './pages/CostumeReadinessRisk';
+import GovernedOperationsPage from './pages/GovernedOperationsPage';
+import GuardianFamilyPage from './pages/GuardianFamilyPage';
 
 // // === Batch 02 Gaps & Frontend Mounts ===
 import CfPredictiveTalentIdentification from './pages/CfPredictiveTalentIdentification';
@@ -53,11 +56,23 @@ import CodexOperationsFeature from './pages/CodexOperationsFeature';
 
 import TimelineView from './pages/TimelineView';
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute({ children, guardian = false }) {
   const token = localStorage.getItem('token');
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  const [account, setAccount] = useState(null);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    if (!token) return;
+    let active = true;
+    apiGet('/auth/me').then(data => { if (active) setAccount(data.user); })
+      .catch(err => { if (active) setError(err.message || 'Account unavailable'); });
+    return () => { active = false; };
+  }, [token]);
+  if (!token) return <Navigate to="/login" replace />;
+  if (error) return <p role="alert">{error}</p>;
+  if (!account) return <p>Checking account…</p>;
+  if (guardian) return account.role === 'parent' ? children : <Navigate to="/" replace />;
+  if (account.role === 'parent') return <Navigate to="/guardian" replace />;
+  if (!['admin', 'staff', 'teacher'].includes(account.role)) return <p role="alert">Staff access is required.</p>;
   return <Layout>{children}</Layout>;
 }
 
@@ -69,6 +84,7 @@ export default function App() {
         <Route path="/codex/operations" element={<ProtectedRoute><CodexOperationsFeature /></ProtectedRoute>} />
 
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/guardian" element={<ProtectedRoute guardian><GuardianFamilyPage /></ProtectedRoute>} />
       <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/classes" element={<ProtectedRoute><ClassesPage /></ProtectedRoute>} />
       <Route path="/students" element={<ProtectedRoute><StudentsPage /></ProtectedRoute>} />
@@ -76,6 +92,7 @@ export default function App() {
       <Route path="/studios" element={<ProtectedRoute><StudiosPage /></ProtectedRoute>} />
       <Route path="/schedules" element={<ProtectedRoute><SchedulesPage /></ProtectedRoute>} />
       <Route path="/enrollment" element={<ProtectedRoute><EnrollmentPage /></ProtectedRoute>} />
+      <Route path="/governed-operations" element={<ProtectedRoute><GovernedOperationsPage /></ProtectedRoute>} />
       <Route path="/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
       <Route path="/recitals" element={<ProtectedRoute><RecitalsPage /></ProtectedRoute>} />
       <Route path="/competitions" element={<ProtectedRoute><CompetitionsPage /></ProtectedRoute>} />

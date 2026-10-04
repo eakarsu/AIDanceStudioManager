@@ -81,8 +81,8 @@ function validate(req, res, next) {
   next();
 }
 
-// POST /api/ai/student-placement
-router.post('/student-placement',
+// POST /api/ai/student-placement-profile (legacy /student-placement alias retained)
+router.post(['/student-placement', '/student-placement-profile'],
   body('student_id').notEmpty().withMessage('student_id is required'),
   validate,
   async (req, res) => {

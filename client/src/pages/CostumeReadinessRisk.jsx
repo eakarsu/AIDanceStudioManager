@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { apiPost } from '../utils/api';
+import AIExampleButtons from '../components/AIExampleButtons';
+import { costumeReadinessExamples } from '../utils/aiExamples';
 
 export default function CostumeReadinessRisk() {
   const [form, setForm] = useState({
@@ -32,6 +34,15 @@ export default function CostumeReadinessRisk() {
         <p>Flag recital costume gaps before they become rehearsal-day blockers.</p>
       </div>
       <form className="form-card" onSubmit={submit}>
+        <AIExampleButtons
+          featureTitle="Costume Readiness Risk"
+          examples={costumeReadinessExamples}
+          onSelect={(example) => {
+            setForm(example.values);
+            setResult(null);
+            setError('');
+          }}
+        />
         {Object.entries(form).map(([key, value]) => (
           <label key={key} className="form-group">
             <span>{key.replace(/([A-Z])/g, ' $1')}</span>

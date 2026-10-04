@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Sparkles, BookOpen, Shirt, Trophy, FileText, Users, Music, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 import { apiPost } from '../utils/api';
 import AIResultDisplay from '../components/AIResultDisplay';
+import AIExampleButtons from '../components/AIExampleButtons';
+import { basicAiExamples, exampleToFormValues } from '../utils/aiExamples';
 
 const aiFeatures = [
   {
@@ -103,6 +105,14 @@ export default function AIFeaturesPage() {
     }));
   };
 
+  const fillExample = (feature, example) => {
+    setFormData((prev) => ({
+      ...prev,
+      [feature.id]: exampleToFormValues(feature.fields, example.values),
+    }));
+    setResults((prev) => ({ ...prev, [feature.id]: null }));
+  };
+
   const handleSubmit = async (feature) => {
     setLoading((prev) => ({ ...prev, [feature.id]: true }));
     setResults((prev) => ({ ...prev, [feature.id]: null }));
@@ -149,6 +159,12 @@ export default function AIFeaturesPage() {
               {isExpanded && (
                 <div className="ai-card-body">
                   <div className="ai-form">
+                    <AIExampleButtons
+                      featureTitle={feature.title}
+                      examples={basicAiExamples[feature.id]}
+                      onSelect={(example) => fillExample(feature, example)}
+                      disabled={isLoading}
+                    />
                     {feature.fields.map((field) => (
                       <div key={field.key} className="form-group">
                         <label>{field.label}</label>

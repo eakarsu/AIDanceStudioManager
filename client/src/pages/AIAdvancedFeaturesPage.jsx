@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Sparkles, ChevronDown, ChevronUp, Loader2, AlertCircle } from 'lucide-react';
 import { apiPost } from '../utils/api';
+import AIExampleButtons from '../components/AIExampleButtons';
+import { advancedAiExamples, exampleToFormValues } from '../utils/aiExamples';
 
 const FEATURES = [
   {
     id: 'student-placement',
     title: 'AI Student Placement',
     desc: 'Recommend optimal class placement using profile + enrollment history.',
-    endpoint: '/ai/student-placement',
+    endpoint: '/ai/student-placement-profile',
     fields: [{ key: 'student_id', label: 'Student ID', type: 'number' }],
   },
   {
@@ -175,6 +177,14 @@ export default function AIAdvancedFeaturesPage() {
     setForms((p) => ({ ...p, [fid]: { ...(p[fid] || {}), [key]: value } }));
   };
 
+  const fillExample = (feature, example) => {
+    setForms((prev) => ({
+      ...prev,
+      [feature.id]: exampleToFormValues(feature.fields, example.values),
+    }));
+    setResults((prev) => ({ ...prev, [feature.id]: null }));
+  };
+
   const run = async (feature) => {
     setLoading((p) => ({ ...p, [feature.id]: true }));
     setResults((p) => ({ ...p, [feature.id]: null }));
@@ -221,6 +231,12 @@ export default function AIAdvancedFeaturesPage() {
               {isOpen && (
                 <div className="ai-card-body">
                   <div className="ai-form">
+                    <AIExampleButtons
+                      featureTitle={feature.title}
+                      examples={advancedAiExamples[feature.id]}
+                      onSelect={(example) => fillExample(feature, example)}
+                      disabled={isLoading}
+                    />
                     {feature.fields.map((f) => (
                       <div key={f.key} className="form-group">
                         <label>{f.label}</label>

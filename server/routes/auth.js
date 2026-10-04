@@ -21,6 +21,7 @@ router.post('/login', async (req, res) => {
     }
 
     const user = result.rows[0];
+    if (user.is_active === false) return res.status(401).json({ error: 'Invalid credentials' });
     const validPassword = await bcrypt.compare(password, user.password_hash);
 
     if (!validPassword) {
@@ -48,7 +49,7 @@ router.post('/login', async (req, res) => {
 });
 
 // POST /register
-const SELF_SERVICE_ROLES = ['parent', 'student', 'teacher', 'staff'];
+const SELF_SERVICE_ROLES = ['parent', 'student'];
 router.post('/register', async (req, res) => {
   try {
     const { first_name, last_name, name, email, password, role } = req.body;
@@ -93,7 +94,7 @@ router.post('/register', async (req, res) => {
 router.get('/me', authenticate, async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT id, email, name, role FROM users WHERE id = $1',
+      'SELECT id, email, name, role FROM users WHERE id = $1 AND is_active IS TRUE',
       [req.user.id]
     );
     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });

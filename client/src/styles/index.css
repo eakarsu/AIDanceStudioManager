@@ -968,6 +968,21 @@ h1, h2, h3, h4 {
   padding-top: 16px;
 }
 
+.ai-example-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ai-example-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
 .spin {
   animation: spin 1s linear infinite;
 }

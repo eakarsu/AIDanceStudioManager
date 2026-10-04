@@ -67,14 +67,16 @@ const createMobileShellRouter = require('./routes/mobileShell');
 const attendanceRiskRoutes = require('./routes/attendanceRisk');
 const authMiddleware = require('./middleware/auth');
 app.use('/api/auth', authRoutes);
+app.use('/api/guardian', require('./routes/guardianFamily')(pool));
+app.use('/api/guardian', require('./routes/guardianEnrollment').guardianEnrollmentRouter(pool));
+app.use('/api', require('./middleware/legacyStaffBoundary')(pool));
 app.use('/api/ai', authMiddleware, attendanceRiskRoutes);
 
 app.use('/api', createMobileShellRouter(require('./middleware/auth'), require('./db'), {"name":"Dance Studio","shortName":"Studio","themeColor":"#a21caf","queries":[{"kind":"todaysClasses","sql":"SELECT id, class_name, starts_at FROM classes WHERE teacher_email = $1 LIMIT 25"}]}));app.use('/api', createParentPortalRouter(require('./middleware/auth'), require('./db')));
 app.use('/api', createWebhooksRouter(require('./middleware/auth'), require('./db')));
-// Legacy CRUD/AI routers below hold studio, family, student, attendance and
-// financial data. They previously ran with no auth at all. Mobile shell and
-// parent portal above are deliberately separate surfaces and keep their own
-// auth middleware.
+// Legacy CRUD/AI routers hold studio, family, student, attendance and
+// financial data without tenant scoping. The staff boundary above also keeps
+// guardian accounts out of the older email-linked parent portal.
 app.use('/api/classes', authMiddleware, classesRoutes);
 app.use('/api/students', authMiddleware, studentsRoutes);
 app.use('/api/teachers', authMiddleware, teachersRoutes);
@@ -116,6 +118,8 @@ app.use('/api/makeup-classes', authMiddleware, makeupClassesRoutes);
 app.use('/api/financial-reports', authMiddleware, financialReportsRoutes);
 app.use('/api/costume-readiness-risk', authMiddleware, costumeReadinessRiskRoutes);
 app.use('/api/governed-operations', require('./routes/governedOperations'));
+app.use('/api/governed-operations', require('./routes/governedOperationsRead'));
+app.use('/api/governed-operations', require('./routes/guardianEnrollment').staffEnrollmentReviewRouter(pool));
 
 // Health check
 app.get('/api/health', async (req, res) => {

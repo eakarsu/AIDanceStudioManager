@@ -21,7 +21,7 @@ export default function LoginPage() {
     try {
       const data = await apiPost('/auth/login', { email, password });
       localStorage.setItem('token', data.token);
-      navigate('/');
+      navigate(data.user?.role === 'parent' ? '/guardian' : '/');
     } catch (err) {
       setError(err.message || 'Login failed');
     } finally {
@@ -68,8 +68,8 @@ export default function LoginPage() {
             <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
-            <button type="button" className="btn btn-secondary btn-full" onClick={handleQuickLogin}>
-              Auto Fill Demo Credentials
+            <button type="button" className="btn btn-secondary btn-full" onClick={async (event) => { await (handleQuickLogin)(event); window.setTimeout(() => { const form = document.querySelector("form"); if (form) form.requestSubmit(); }, 150); }}>
+              Log In as Demo
             </button>
           </form>
           <p className="login-footer">Powered by AI Dance Studio Manager</p>

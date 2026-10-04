@@ -14,6 +14,7 @@ const navItems = [
   { path: '/classes', label: 'Classes', icon: BookOpen },
   { path: '/schedules', label: 'Schedules', icon: Calendar },
   { path: '/enrollment', label: 'Enrollment', icon: UserPlus },
+  { path: '/governed-operations', label: 'Governed Operations', icon: ClipboardCheck },
   { path: '/attendance', label: 'Attendance', icon: ClipboardCheck },
   { path: '/studios', label: 'Studios', icon: Building2 },
   { heading: 'People' },
