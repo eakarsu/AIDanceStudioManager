@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Sparkles, ChevronDown, ChevronUp, Loader2, AlertCircle } from 'lucide-react';
-import { apiPost } from '../utils/api';
+import { apiGet, apiPost } from '../utils/api';
+import AIReport from '../components/AIReport';
 import AIExampleButtons from '../components/AIExampleButtons';
-import { advancedAiExamples, exampleToFormValues } from '../utils/aiExamples';
+import { advancedAiExamples, exampleToFormValues, resolvedAdvancedExamples } from '../utils/aiExamples';
 
 const FEATURES = [
   {
@@ -172,6 +173,18 @@ export default function AIAdvancedFeaturesPage() {
   const [forms, setForms] = useState({});
   const [results, setResults] = useState({});
   const [loading, setLoading] = useState({});
+  const [catalog, setCatalog] = useState({});
+  useEffect(() => {
+    let active = true;
+    const resources = ['students', 'classes', 'recitals', 'competitions', 'families', 'photos', 'teachers'];
+    Promise.all(resources.map(async (name) => {
+      try {
+        const result = await apiGet(`/${name}?limit=100`);
+        return [name, Array.isArray(result) ? result : Array.isArray(result?.data) ? result.data : []];
+      } catch (_) { return [name, []]; }
+    })).then((entries) => { if (active) setCatalog(Object.fromEntries(entries)); });
+    return () => { active = false; };
+  }, []);
 
   const setField = (fid, key, value) => {
     setForms((p) => ({ ...p, [fid]: { ...(p[fid] || {}), [key]: value } }));
@@ -233,7 +246,7 @@ export default function AIAdvancedFeaturesPage() {
                   <div className="ai-form">
                     <AIExampleButtons
                       featureTitle={feature.title}
-                      examples={advancedAiExamples[feature.id]}
+                      examples={resolvedAdvancedExamples(feature.id, advancedAiExamples[feature.id], catalog, forms[feature.id])}
                       onSelect={(example) => fillExample(feature, example)}
                       disabled={isLoading}
                     />
@@ -269,11 +282,7 @@ export default function AIAdvancedFeaturesPage() {
                     </div>
                   )}
                   {result && !result.error && (
-                    <div style={{ marginTop: 12, padding: 12, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 6 }}>
-                      <pre style={{ fontSize: 12, overflowX: 'auto', whiteSpace: 'pre-wrap' }}>
-                        {JSON.stringify(result, null, 2)}
-                      </pre>
-                    </div>
+                    <AIReport response={result} title={feature.title} />
                   )}
                 </div>
               )}

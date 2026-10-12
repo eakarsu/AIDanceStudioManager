@@ -8,7 +8,8 @@ const pool = require('../db');
 
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM waitlist ORDER BY requested_date, created_at');
+    // id exists in both the current seed schema and database/schema.sql.
+    const result = await pool.query('SELECT * FROM waitlist ORDER BY id');
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });

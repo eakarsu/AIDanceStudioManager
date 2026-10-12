@@ -1,5 +1,5 @@
 // Each scenario supplies every field in its feature form, including optional fields.
-// IDs in advanced examples match the bundled seed data; replace them for another database.
+// Record references in advanced examples are resolved against loaded records before use.
 export const basicAiExamples = {
   'class-description': [
     { label: 'Beginner ballet', values: { danceStyle: 'Ballet', level: 'Beginner', ageGroup: '6-8 years', additionalInfo: 'Focus on posture, musicality, and a welcoming first recital experience. One 45-minute class each week.' } },
@@ -86,6 +86,70 @@ export const costumeReadinessExamples = [
   { label: 'Low risk', values: { dancerCount: 64, missingCostumes: 1, alterationTickets: 2, recitalDays: 30, measurementAgeDays: 21, vendorDelayDays: 0 } },
   { label: 'High risk', values: { dancerCount: 64, missingCostumes: 12, alterationTickets: 18, recitalDays: 5, measurementAgeDays: 100, vendorDelayDays: 10 } },
 ];
+
+const recordName = (row) => row.name || [row.first_name, row.last_name].filter(Boolean).join(' ') || row.title || row.family_name || `Record ${row.id}`;
+
+export function resolvedAdvancedExamples(featureId, examples, catalog, current = {}) {
+  const needs = {
+    'student-placement': ['students'], 'student-progress-report': ['students'],
+    'recital-program': ['recitals', 'classes'], 'parent-communication': ['students'],
+    'competition-strategy': ['competitions', 'students'], 'talent-show-matcher': ['students'],
+    'multilingual-parent-portal': ['families'], 'photo-tagging': ['photos', 'students'],
+    'teacher-workload-balance': ['teachers', 'classes'],
+  };
+  const required = needs[featureId] || [];
+  if (!required.length) return examples;
+  const missing = required.filter((name) => !catalog[name]?.length);
+  if (missing.length) return examples.map((example) => ({ ...example, unavailable: `Load existing ${missing.join(' and ')} records to use these examples. No record IDs are assumed.` }));
+  const pick = (name, index, selected) => catalog[name]?.find((row) => String(row.id) === String(selected)) || (catalog[name] || [])[index % (catalog[name]?.length || 1)];
+  const rows = (name, key, index, count, idKey = 'id') => {
+    try {
+      const selected = JSON.parse(current[key] || '[]');
+      if (Array.isArray(selected) && selected.length && selected.every((item) => catalog[name].some((row) => String(row.id) === String(item[idKey])))) {
+        return selected.map((item) => catalog[name].find((row) => String(row.id) === String(item[idKey])));
+      }
+    } catch (_) { /* Keep genuine loaded records. */ }
+    return catalog[name].slice(index, index + count).concat(catalog[name].slice(0, Math.max(0, index + count - catalog[name].length)));
+  };
+  return examples.map((example, index) => {
+    const values = { ...example.values };
+    const students = catalog.students || [];
+    const classes = catalog.classes || [];
+    const teachers = catalog.teachers || [];
+    switch (featureId) {
+      case 'student-placement': case 'student-progress-report': values.student_id = pick('students', index, current.student_id).id; break;
+      case 'recital-program':
+        values.recital_id = pick('recitals', index, current.recital_id).id;
+        values.participating_classes = rows('classes', 'participating_classes', index, 2).map((row) => ({ id: row.id, name: row.name, style: row.dance_style || row.style, level: row.level, age_group: row.age_group }));
+        break;
+      case 'parent-communication': {
+        let selected = [];
+        try { selected = JSON.parse(current.student_ids || '[]'); } catch (_) { /* Use actual loaded students. */ }
+        values.student_ids = selected.length && selected.every((id) => students.some((row) => String(row.id) === String(id))) ? selected : students.slice(index, index + 2).map((row) => row.id);
+        break;
+      }
+      case 'competition-strategy':
+        values.competition_id = pick('competitions', index, current.competition_id).id;
+        values.entering_students = rows('students', 'entering_students', index, 2).map((row) => ({ id: row.id, name: recordName(row), age: row.age, style: row.dance_style || row.style, level: row.level }));
+        break;
+      case 'talent-show-matcher':
+        values.students = rows('students', 'students', index, 3).map((row) => ({ id: row.id, name: recordName(row), style: row.dance_style || row.style, level: row.level }));
+        break;
+      case 'multilingual-parent-portal': values.family_id = pick('families', index, current.family_id).id; break;
+      case 'photo-tagging':
+        values.photos = rows('photos', 'photos', index, 2, 'photo_id').map((row) => ({ photo_id: row.id, ...(row.filename || row.file_name || row.url ? { filename: row.filename || row.file_name || row.url } : {}) }));
+        values.event_context = catalog.photos[index % catalog.photos.length].event_name || catalog.photos[index % catalog.photos.length].description || 'Existing photo records; confirm the event context before generating.';
+        values.dancer_roster = rows('students', 'dancer_roster', index, 2).map((row) => ({ id: row.id, name: recordName(row) }));
+        break;
+      case 'teacher-workload-balance':
+        values.teachers = rows('teachers', 'teachers', index, 2).map((row) => ({ id: row.id, name: recordName(row), weekly_hours: row.weekly_hours ?? 0, specialties: row.specialties || [] }));
+        values.classes = rows('classes', 'classes', index, 2).map((row) => ({ id: row.id, name: row.name, duration_min: row.duration_min || 60, teacher_id: teachers.find((teacher) => String(teacher.id) === String(row.teacher_id))?.id ?? null }));
+        break;
+      default: break;
+    }
+    return { ...example, label: `Existing records · example ${index + 1}`, values };
+  });
+}
 
 export function exampleToFormValues(fields, values) {
   return Object.fromEntries(fields.map((field) => [

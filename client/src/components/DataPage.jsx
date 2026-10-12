@@ -20,9 +20,12 @@ export default function DataPage({ title, endpoint, columns, formFields, renderD
     setLoading(true);
     try {
       const res = await apiGet(endpoint);
-      const arr = Array.isArray(res) ? res : res?.data || res?.results || [];
-      setData(arr);
+      const rows = Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : res?.results;
+      if (!Array.isArray(rows)) throw new Error(`The ${title.toLowerCase()} response did not contain a record list.`);
+      setData(rows);
+      setError('');
     } catch (err) {
+      setData([]);
       setError(err.message);
     } finally {
       setLoading(false);

@@ -1,0 +1,262 @@
+[
+  {
+    "name": "ParentEngagementAutomationPage",
+    "id": "cf-parent-engagement-automation",
+    "title": "Parent engagement automation",
+    "description": "Prepare a professional advisory report for parent engagement automation using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Parent engagement automation for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Parent engagement automation data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Parent engagement automation.\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "PredictiveTalentIdentificationPage",
+    "id": "cf-predictive-talent-identification",
+    "title": "Predictive talent identification",
+    "description": "Prepare a professional advisory report for predictive talent identification using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Predictive talent identification for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Predictive talent identification data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Predictive talent identification.\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "RecitalCompetitionOptimizationPage",
+    "id": "cf-recital-competition-optimization",
+    "title": "Recital/competition optimization",
+    "description": "Prepare a professional advisory report for recital/competition optimization using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Recital/competition optimization for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Recital/competition optimization data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Recital/competition optimization.\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "StudentProgressionTrackingPage",
+    "id": "cf-student-progression-tracking",
+    "title": "Student progression tracking",
+    "description": "Prepare a professional advisory report for student progression tracking using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Student progression tracking for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Student progression tracking data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Student progression tracking.\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "TeacherWorkloadBalancingPage",
+    "id": "cf-teacher-workload-balancing",
+    "title": "Teacher workload balancing",
+    "description": "Prepare a professional advisory report for teacher workload balancing using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Teacher workload balancing for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Teacher workload balancing data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Teacher workload balancing.\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "AttendanceLacksAiNoShowChurnPredictionPage",
+    "id": "gap-attendance-lacks-ai-no-show-churn-prediction",
+    "title": "`attendance` lacks AI no-show / churn prediction.",
+    "description": "Prepare a professional advisory report for `attendance` lacks ai no-show / churn prediction. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run `attendance` lacks AI no-show / churn prediction. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this `attendance` lacks AI no-show / churn prediction. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for `attendance` lacks AI no-show / churn prediction..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "LimitedMobileAppForStudentsTeachersPage",
+    "id": "gap-limited-mobile-app-for-students-teachers",
+    "title": "Limited mobile app for students/teachers.",
+    "description": "Prepare a professional advisory report for limited mobile app for students/teachers. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run Limited mobile app for students/teachers. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this Limited mobile app for students/teachers. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for Limited mobile app for students/teachers..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "MusicVideosPhotosLackAiCurationSuggestionEndpointsPage",
+    "id": "gap-music-videos-photos-lack-ai-curation-suggestion-endpoints",
+    "title": "`music`, `videos`, `photos` lack AI curation/suggestion endpoints.",
+    "description": "Prepare a professional advisory report for `music`, `videos`, `photos` lack ai curation/suggestion endpoints. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run `music`, `videos`, `photos` lack AI curation/suggestion endpoints. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this `music`, `videos`, `photos` lack AI curation/suggestion endpoints. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for `music`, `videos`, `photos` lack AI curation/suggestion endpoints..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "NoMusicLicensingIntegrationForPublicPerformancesPage",
+    "id": "gap-no-music-licensing-integration-for-public-performances",
+    "title": "No music-licensing integration for public performances.",
+    "description": "Prepare a professional advisory report for no music-licensing integration for public performances. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No music-licensing integration for public performances. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No music-licensing integration for public performances. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No music-licensing integration for public performances..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "NoParentPortalForAttendanceGradesMessagingPage",
+    "id": "gap-no-parent-portal-for-attendance-grades-messaging",
+    "title": "No parent portal for attendance, grades, messaging.",
+    "description": "Prepare a professional advisory report for no parent portal for attendance, grades, messaging. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No parent portal for attendance, grades, messaging. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No parent portal for attendance, grades, messaging. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No parent portal for attendance, grades, messaging..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "NoVideoStreamingRecordingPlatformIntegrationPage",
+    "id": "gap-no-video-streaming-recording-platform-integration",
+    "title": "No video streaming/recording platform integration.",
+    "description": "Prepare a professional advisory report for no video streaming/recording platform integration. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No video streaming/recording platform integration. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No video streaming/recording platform integration. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No video streaming/recording platform integration..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "NoWebhooksPage",
+    "id": "gap-no-webhooks",
+    "title": "No webhooks.",
+    "description": "Prepare a professional advisory report for no webhooks. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run No webhooks. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this No webhooks. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for No webhooks..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  },
+  {
+    "name": "SchedulesCompetitionsRecitalsLackAiEndpointsForScheduPage",
+    "id": "gap-schedules-competitions-recitals-lack-ai-endpoints-for-schedu",
+    "title": "`schedules`, `competitions`, `recitals` lack AI endpoints for scheduling optimization and competition outcome prediction.",
+    "description": "Prepare a professional advisory report for `schedules`, `competitions`, `recitals` lack ai endpoints for scheduling optimization and competition outcome prediction. using the brief and evidence you provide. Review the findings, assumptions, and action plan before applying changes.",
+    "samples": [
+      {
+        "label": "Scenario",
+        "value": "Run `schedules`, `competitions`, `recitals` lack AI endpoints for scheduling optimization and competition outcome prediction. for a realistic customer case.\nContext: a team needs a practical recommendation based on incomplete operating data.\nGoal: identify the best action, key risks, missing information, and expected business impact.\nReturn: summary, prioritized action plan, assumptions, and follow-up questions."
+      },
+      {
+        "label": "Data sample",
+        "value": "Analyze this `schedules`, `competitions`, `recitals` lack AI endpoints for scheduling optimization and competition outcome prediction. data sample.\nInput records:\n- Record 1: urgent, customer impact high, owner unassigned\n- Record 2: medium priority, blocked by missing data\n- Record 3: recurring issue, automation opportunity\nReturn structured findings, anomalies, recommendations, and confidence."
+      },
+      {
+        "label": "Executive review",
+        "value": "Prepare an executive review for `schedules`, `competitions`, `recitals` lack AI endpoints for scheduling optimization and competition outcome prediction..\nAudience: business owner, operations lead, and implementation team.\nInclude impact, risk, estimated effort, decision points, and a concise next-step plan."
+      }
+    ]
+  }
+]

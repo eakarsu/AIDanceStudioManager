@@ -10,11 +10,13 @@ export default function AIExampleButtons({ featureTitle, examples, onSelect, dis
           className="btn btn-secondary btn-sm"
           type="button"
           onClick={() => onSelect(example)}
-          disabled={disabled}
+          disabled={disabled || !!example.unavailable}
+          title={example.unavailable || undefined}
         >
           {example.label}
         </button>
       ))}
+      {examples.some((example) => example.unavailable) && <span className="ai-example-label" role="status">{examples.find((example) => example.unavailable).unavailable}</span>}
     </div>
   );
 }

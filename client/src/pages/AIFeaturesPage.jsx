@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Sparkles, BookOpen, Shirt, Trophy, FileText, Users, Music, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 import { apiPost } from '../utils/api';
-import AIResultDisplay from '../components/AIResultDisplay';
+import AIReport from '../components/AIReport';
 import AIExampleButtons from '../components/AIExampleButtons';
 import { basicAiExamples, exampleToFormValues } from '../utils/aiExamples';
 
@@ -209,7 +209,7 @@ export default function AIFeaturesPage() {
                   </div>
 
                   {result && !result.error && (
-                    <AIResultDisplay result={result} />
+                    <AIReport response={result} title={feature.title} />
                   )}
                   {result?.error && (
                     <div className="alert alert-error">{result.error}</div>

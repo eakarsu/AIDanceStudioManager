@@ -9,9 +9,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleQuickLogin = () => {
-    setEmail(import.meta.env.VITE_DEMO_EMAIL || '');
-    setPassword(import.meta.env.VITE_DEMO_PASSWORD || '');
+  const handleQuickLogin = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const data = await apiPost('/auth/demo-login', {});
+      localStorage.setItem('token', data.token);
+      navigate(data.user?.role === 'parent' ? '/guardian' : '/');
+    } catch (err) {
+      setError(err.message || 'Demo login is unavailable');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -68,7 +77,7 @@ export default function LoginPage() {
             <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
-            <button type="button" className="btn btn-secondary btn-full" onClick={async (event) => { await (handleQuickLogin)(event); window.setTimeout(() => { const form = document.querySelector("form"); if (form) form.requestSubmit(); }, 150); }}>
+            <button type="button" className="btn btn-secondary btn-full" onClick={handleQuickLogin} disabled={loading}>
               Log In as Demo
             </button>
           </form>

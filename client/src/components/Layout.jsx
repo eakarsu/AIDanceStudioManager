@@ -1,3 +1,4 @@
+import AIReportLibrary from "./AIReportLibrary";
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
@@ -90,7 +91,7 @@ export default function Layout({ children }) {
             );
           })}
         </nav>
-      </aside>
+      <AIReportLibrary /></aside>
       <div className="main-area">
         <header className="top-header">
           {!sidebarOpen && (
