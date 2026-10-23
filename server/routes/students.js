@@ -9,9 +9,14 @@ router.get('/', async (req, res) => {
     const limit = Math.min(100, parseInt(req.query.limit) || 20);
     const offset = (page - 1) * limit;
 
+    const _w=[]; const _p=[];
+    if (req.query.q) { _p.push(`%${req.query.q}%`); _w.push(`(first_name ILIKE $${_p.length} OR last_name ILIKE $${_p.length} OR email ILIKE $${_p.length})`); }
+    if (req.query.status) { _p.push(req.query.status); _w.push(`level=$${_p.length}`); }
+    if (req.query.level) { _p.push(req.query.level); _w.push(`level=$${_p.length}`); }
+    const _where=_w.length?` WHERE ${_w.join(' AND ')}`:'';
     const [result, countResult] = await Promise.all([
-      pool.query('SELECT * FROM students ORDER BY last_name, first_name LIMIT $1 OFFSET $2', [limit, offset]),
-      pool.query('SELECT COUNT(*) as total FROM students')
+      pool.query(`SELECT * FROM students${_where} ORDER BY last_name, first_name LIMIT $${_p.length+1} OFFSET $${_p.length+2}`, [..._p, limit, offset]),
+      pool.query(`SELECT COUNT(*) as total FROM students${_where}`, _p)
     ]);
 
     res.json({

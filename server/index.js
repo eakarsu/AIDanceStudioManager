@@ -148,6 +148,8 @@ app.get('/api/health', async (req, res) => {
 // // === Batch 02 Gaps & Frontend Mounts ===
 
 
+const _fpDance = require('./routes/featurePack').createFeaturePackRouter(authMiddleware);
+app.use('/api', _fpDance); app.use('/api/feature-pack', _fpDance);
 // Advisory AI reports only; native execution and approval routes stay unchanged.
 const aiWorkspaceSupport = require("./aiWorkspaceAdapters.cjs");
 const aiWorkspaceDatabase = require("./db.js");
